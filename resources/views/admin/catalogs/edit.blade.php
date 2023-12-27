@@ -22,6 +22,6 @@
         <label for="description">Description:</label>
         <textarea name="description" id="description" cols="30" rows="10" class="form-control">{{ $catalog->description }}</textarea>
     </div>
-
+</form>
 </body>
 </html>
