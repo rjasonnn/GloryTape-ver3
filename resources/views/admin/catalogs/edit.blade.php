@@ -19,6 +19,9 @@
         <input type="file" name="image_path" id="image_path" class="form-control">
     </div>
     <div class="form-group">
+        <label for="description">Description:</label>
+        <textarea name="description" id="description" cols="30" rows="10" class="form-control">{{ $catalog->description }}</textarea>
+    </div>
 
 </body>
 </html>

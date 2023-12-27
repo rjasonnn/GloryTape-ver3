@@ -21,4 +21,6 @@
         <input type="text" name="phone" id="phone" value="{{ $customer->phone }}">
     </div>
     <button type="submit">Update Customer</button>
-</form
+</form>
+</body>
+</html>

@@ -8,14 +8,22 @@
 <form action="{{ route('ukurans.update', $ukuran->id) }}" method="POST">
     @csrf
     @method('PUT')
-    <div>
-        <label for="length">Length:</label>
-        <input type="text" name="length" id="length" value="{{ $ukuran->length }}">
-    </div>
+{{--    <div>--}}
+{{--        <label for="length">Length:</label>--}}
+{{--        <input type="text" name="length" id="length" value="{{ $ukuran->length }}">--}}
+{{--    </div>--}}
     <div>
         <label for="width">Width:</label>
         <input type="text" name="width" id="width" value="{{ $ukuran->width }}">
     </div>
     <div>
         <label for="height">Height:</label>
-        <input type="text" name="height" id
+        <input type="text" name="height" id="height" value="{{ $ukuran->height }}">
+    </div>
+    <div>
+        <label for="weight">Weight:</label>
+        <input type="text" name="weight" id="weight" value="{{ $ukuran->weight }}">
+    </div>
+</form>
+</body>
+</html>
