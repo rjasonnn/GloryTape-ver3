@@ -22,7 +22,14 @@ class UpdateTransactionRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'invoice' => 'required|file|mimes:jpg,jpeg,png|max:2048',
+            'date' => 'required|date',
+            'customer_id' => 'required|exists:customers,id',
+            'delivery_id' => 'required|exists:deliveries,id',
+            'products' => 'required|array',
+            'products.*.product_id' => 'required|exists:products,id',
+            'products.*.quantity' => 'required|integer|min:1',
+            'products.*.price' => 'required|numeric|min:0',
         ];
     }
 }

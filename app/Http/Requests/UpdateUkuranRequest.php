@@ -22,7 +22,9 @@ class UpdateUkuranRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'length' => 'required|numeric',
+            'width' => 'required|numeric',
+            'height' => 'required|numeric',
         ];
     }
 }

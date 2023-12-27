@@ -13,7 +13,8 @@ class WarnaController extends Controller
      */
     public function index()
     {
-        //
+        $warnas = Warna::all(); // Retrieve all warnas
+        return view('admin.warnas.index', compact('warnas')); // Pass warnas to the view
     }
 
     /**
@@ -21,7 +22,7 @@ class WarnaController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.warnas.create'); // Display the create form
     }
 
     /**
@@ -29,7 +30,8 @@ class WarnaController extends Controller
      */
     public function store(StoreWarnaRequest $request)
     {
-        //
+        Warna::create($request->all()); // Create a new warna using validated data
+        return redirect()->route('warnas.index')->with('success', 'Warna created successfully'); // Redirect with success message
     }
 
     /**
@@ -37,7 +39,7 @@ class WarnaController extends Controller
      */
     public function show(Warna $warna)
     {
-        //
+        return view('admin.warnas.show', compact('warna')); // Display the warna details
     }
 
     /**
@@ -45,7 +47,7 @@ class WarnaController extends Controller
      */
     public function edit(Warna $warna)
     {
-        //
+        return view('admin.warnas.edit', compact('warna')); // Display the edit form
     }
 
     /**
@@ -53,7 +55,8 @@ class WarnaController extends Controller
      */
     public function update(UpdateWarnaRequest $request, Warna $warna)
     {
-        //
+        $warna->update($request->all()); // Update the warna with validated data
+        return redirect()->route('warnas.index')->with('success', 'Warna updated successfully'); // Redirect with success message
     }
 
     /**
@@ -61,6 +64,7 @@ class WarnaController extends Controller
      */
     public function destroy(Warna $warna)
     {
-        //
+        $warna->delete(); // Delete the warna
+        return redirect()->route('warnas.index')->with('success', 'Warna deleted successfully'); // Redirect with success message
     }
 }

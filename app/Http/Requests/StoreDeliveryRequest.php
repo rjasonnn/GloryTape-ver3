@@ -22,7 +22,10 @@ class StoreDeliveryRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'driver' => 'required|string|max:255',
+            'vehicle' => 'required|string|max:255',
+            'license_plate' => 'required|string|max:255',
+            'fee' => 'required|numeric',
         ];
     }
 }

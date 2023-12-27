@@ -8,6 +8,7 @@ use App\Http\Requests\UpdateCatalogRequest;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
 class CatalogController extends Controller
@@ -36,8 +37,8 @@ class CatalogController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \App\Http\Requests\StoreCatalogRequest  $request
-     * @return \Illuminate\Http\RedirectResponse
+     * @param StoreCatalogRequest $request
+     * @return RedirectResponse
      */
     public function store(StoreCatalogRequest $request)
     {
@@ -48,7 +49,7 @@ class CatalogController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Catalog  $catalog
+     * @param Catalog $catalog
      * @return Application|Factory|\Illuminate\Foundation\Application|View
      */
     public function show(Catalog $catalog)
@@ -59,7 +60,7 @@ class CatalogController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Catalog  $catalog
+     * @param Catalog $catalog
      * @return Application|Factory|\Illuminate\Foundation\Application|View
      */
     public function edit(Catalog $catalog)
@@ -70,9 +71,9 @@ class CatalogController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \App\Http\Requests\UpdateCatalogRequest  $request
-     * @param  \App\Models\Catalog  $catalog
-     * @return \Illuminate\Http\RedirectResponse
+     * @param UpdateCatalogRequest $request
+     * @param Catalog $catalog
+     * @return RedirectResponse
      */
     public function update(UpdateCatalogRequest $request, Catalog $catalog)
     {
@@ -83,8 +84,8 @@ class CatalogController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Catalog  $catalog
-     * @return \Illuminate\Http\RedirectResponse
+     * @param Catalog $catalog
+     * @return RedirectResponse
      */
     public function destroy(Catalog $catalog)
     {

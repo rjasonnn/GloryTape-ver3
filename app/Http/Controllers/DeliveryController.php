@@ -13,7 +13,8 @@ class DeliveryController extends Controller
      */
     public function index()
     {
-        //
+        $deliveries = Delivery::all(); // Retrieve all deliveries
+        return view('admin.deliveries.index', compact('deliveries')); // Pass deliveries to the view
     }
 
     /**
@@ -21,7 +22,7 @@ class DeliveryController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.deliveries.create'); // Display the create form
     }
 
     /**
@@ -29,7 +30,8 @@ class DeliveryController extends Controller
      */
     public function store(StoreDeliveryRequest $request)
     {
-        //
+        Delivery::create($request->all()); // Create a new delivery using validated data
+        return redirect()->route('deliveries.index')->with('success', 'Delivery created successfully'); // Redirect with success message
     }
 
     /**
@@ -37,7 +39,7 @@ class DeliveryController extends Controller
      */
     public function show(Delivery $delivery)
     {
-        //
+        return view('admin.deliveries.show', compact('delivery')); // Display the delivery details
     }
 
     /**
@@ -45,7 +47,7 @@ class DeliveryController extends Controller
      */
     public function edit(Delivery $delivery)
     {
-        //
+        return view('admin.deliveries.edit', compact('delivery')); // Display the edit form
     }
 
     /**
@@ -53,7 +55,8 @@ class DeliveryController extends Controller
      */
     public function update(UpdateDeliveryRequest $request, Delivery $delivery)
     {
-        //
+        $delivery->update($request->all()); // Update the delivery with validated data
+        return redirect()->route('deliveries.index')->with('success', 'Delivery updated successfully'); // Redirect with success message
     }
 
     /**
@@ -61,6 +64,7 @@ class DeliveryController extends Controller
      */
     public function destroy(Delivery $delivery)
     {
-        //
+        $delivery->delete(); // Delete the delivery
+        return redirect()->route('deliveries.index')->with('success', 'Delivery deleted successfully'); // Redirect with success message
     }
 }

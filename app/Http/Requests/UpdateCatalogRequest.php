@@ -22,7 +22,10 @@ class UpdateCatalogRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'image_path' => 'required|string|max:255',
+            'description' => 'required|string|max:255',
+            'start_date' => 'required|string|max:255',
+            'end_date' => 'required|string|max:255',
         ];
     }
 }

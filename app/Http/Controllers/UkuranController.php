@@ -13,7 +13,8 @@ class UkuranController extends Controller
      */
     public function index()
     {
-        //
+        $ukurans = Ukuran::all(); // Retrieve all ukurans
+        return view('admin.ukurans.index', compact('ukurans')); // Pass ukurans to the view
     }
 
     /**
@@ -21,7 +22,7 @@ class UkuranController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.ukurans.create'); // Display the create form
     }
 
     /**
@@ -29,7 +30,8 @@ class UkuranController extends Controller
      */
     public function store(StoreUkuranRequest $request)
     {
-        //
+        Ukuran::create($request->all()); // Create a new ukuran using validated data
+        return redirect()->route('ukurans.index')->with('success', 'Ukuran created successfully'); // Redirect with success message
     }
 
     /**
@@ -37,7 +39,7 @@ class UkuranController extends Controller
      */
     public function show(Ukuran $ukuran)
     {
-        //
+        return view('admin.ukurans.show', compact('ukuran')); // Display the ukuran details
     }
 
     /**
@@ -45,7 +47,7 @@ class UkuranController extends Controller
      */
     public function edit(Ukuran $ukuran)
     {
-        //
+        return view('admin.ukurans.edit', compact('ukuran')); // Display the edit form
     }
 
     /**
@@ -53,7 +55,8 @@ class UkuranController extends Controller
      */
     public function update(UpdateUkuranRequest $request, Ukuran $ukuran)
     {
-        //
+        $ukuran->update($request->all()); // Update the ukuran with validated data
+        return redirect()->route('ukurans.index')->with('success', 'Ukuran updated successfully'); // Redirect with success message
     }
 
     /**
@@ -61,6 +64,7 @@ class UkuranController extends Controller
      */
     public function destroy(Ukuran $ukuran)
     {
-        //
+        $ukuran->delete(); // Delete the ukuran
+        return redirect()->route('ukurans.index')->with('success', 'Ukuran deleted successfully'); // Redirect with success message
     }
 }

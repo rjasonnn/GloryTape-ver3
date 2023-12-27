@@ -13,7 +13,8 @@ class StoreController extends Controller
      */
     public function index()
     {
-        //
+        $stores = Store::all(); // Retrieve all stores
+        return view('admin.stores.index', compact('stores')); // Pass stores to the view
     }
 
     /**
@@ -21,7 +22,7 @@ class StoreController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.stores.create'); // Display the create form
     }
 
     /**
@@ -29,7 +30,8 @@ class StoreController extends Controller
      */
     public function store(StoreStoreRequest $request)
     {
-        //
+        Store::create($request->all()); // Create a new store using validated data
+        return redirect()->route('stores.index')->with('success', 'Store created successfully'); // Redirect with success message
     }
 
     /**
@@ -37,7 +39,7 @@ class StoreController extends Controller
      */
     public function show(Store $store)
     {
-        //
+        return view('admin.stores.show', compact('store')); // Display the store details
     }
 
     /**
@@ -45,7 +47,7 @@ class StoreController extends Controller
      */
     public function edit(Store $store)
     {
-        //
+        return view('admin.stores.edit', compact('store')); // Display the edit form
     }
 
     /**
@@ -53,7 +55,8 @@ class StoreController extends Controller
      */
     public function update(UpdateStoreRequest $request, Store $store)
     {
-        //
+        $store->update($request->all()); // Update the store with validated data
+        return redirect()->route('stores.index')->with('success', 'Store updated successfully'); // Redirect with success message
     }
 
     /**
@@ -61,6 +64,7 @@ class StoreController extends Controller
      */
     public function destroy(Store $store)
     {
-        //
+        $store->delete(); // Delete the store
+        return redirect()->route('stores.index')->with('success', 'Store deleted successfully'); // Redirect with success message
     }
 }

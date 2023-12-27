@@ -3,8 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Models\Transaction;
+use App\Models\TransactionProduct;
+use App\Models\Customer;
+use App\Models\Delivery;
+use App\Models\Product;
 use App\Http\Requests\StoreTransactionRequest;
 use App\Http\Requests\UpdateTransactionRequest;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class TransactionController extends Controller
 {
@@ -13,7 +19,8 @@ class TransactionController extends Controller
      */
     public function index()
     {
-        //
+        $transactions = Transaction::with(['customer', 'delivery', 'products'])->get();
+        return view('admin.transactions.index', compact('transactions'));
     }
 
     /**
@@ -21,7 +28,10 @@ class TransactionController extends Controller
      */
     public function create()
     {
-        //
+        $customers = Customer::all();
+        $deliveries = Delivery::all();
+        $products = Product::all();
+        return view('admin.transactions.create', compact('customers', 'deliveries', 'products'));
     }
 
     /**
@@ -29,7 +39,23 @@ class TransactionController extends Controller
      */
     public function store(StoreTransactionRequest $request)
     {
-        //
+        $transaction = Transaction::create([
+            'invoice' => $request->invoice->store('invoices'),
+            'date' => $request->date,
+            'customer_id' => $request->customer_id,
+            'delivery_id' => $request->delivery_id,
+        ]);
+
+        foreach ($request->products as $productId => $productData) {
+            TransactionProduct::create([
+                'transaction_id' => $transaction->id,
+                'product_id' => $productId,
+                'quantity' => $productData['quantity'],
+                'price' => $productData['price'],
+            ]);
+        }
+
+        return redirect()->route('transactions.index')->with('success', 'Transaction created successfully!');
     }
 
     /**
@@ -37,7 +63,7 @@ class TransactionController extends Controller
      */
     public function show(Transaction $transaction)
     {
-        //
+        return view('admin.transactions.show', compact('transaction'));
     }
 
     /**
@@ -45,7 +71,10 @@ class TransactionController extends Controller
      */
     public function edit(Transaction $transaction)
     {
-        //
+        $customers = Customer::all();
+        $deliveries = Delivery::all();
+        $products = Product::all();
+        return view('admin.transactions.edit', compact('transaction', 'customers', 'deliveries', 'products'));
     }
 
     /**
@@ -53,7 +82,29 @@ class TransactionController extends Controller
      */
     public function update(UpdateTransactionRequest $request, Transaction $transaction)
     {
-        //
+        // Delete old invoice if a new one is uploaded
+        if ($request->invoice) {
+            Storage::delete($transaction->invoice);
+            $transaction->invoice = $request->invoice->store('invoices');
+        }
+
+        $transaction->update([
+            'date' => $request->date,
+            'customer_id' => $request->customer_id,
+            'delivery_id' => $request->delivery_id,
+        ]);
+
+        TransactionProduct::where('transaction_id', $transaction->id)->delete();
+        foreach ($request->products as $productId => $productData) {
+            TransactionProduct::create([
+                'transaction_id' => $transaction->id,
+                'product_id' => $productId,
+                'quantity' => $productData['quantity'],
+                'price' => $productData['price'],
+            ]);
+        }
+
+        return redirect()->route('transactions.index')->with('success', 'Transaction updated successfully!');
     }
 
     /**
@@ -61,6 +112,8 @@ class TransactionController extends Controller
      */
     public function destroy(Transaction $transaction)
     {
-        //
+        Storage::delete($transaction->invoice);
+        $transaction->delete();
+        return redirect()->route('transactions.index')->with('success', 'Transaction deleted successfully!');
     }
 }

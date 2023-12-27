@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
+use App\Models\Bahan; // Assuming model name for bahan
+use App\Models\Warna; // Assuming model name for warna
+use App\Models\Ukuran; // Assuming model name for ukuran
 use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
 
@@ -13,7 +16,8 @@ class ProductController extends Controller
      */
     public function index()
     {
-        //
+        $products = Product::with(['bahan', 'warna', 'ukuran'])->get(); // Eager load relationships for efficiency
+        return view('admin.products.index', compact('products'));
     }
 
     /**
@@ -21,7 +25,10 @@ class ProductController extends Controller
      */
     public function create()
     {
-        //
+        $bahans = Bahan::all();
+        $warnas = Warna::all();
+        $ukurans = Ukuran::all();
+        return view('admin.products.create', compact('bahans', 'warnas', 'ukurans'));
     }
 
     /**
@@ -29,7 +36,8 @@ class ProductController extends Controller
      */
     public function store(StoreProductRequest $request)
     {
-        //
+        Product::create($request->all());
+        return redirect()->route('products.index')->with('success', 'Product created successfully');
     }
 
     /**
@@ -37,7 +45,7 @@ class ProductController extends Controller
      */
     public function show(Product $product)
     {
-        //
+        return view('admin.products.show', compact('product'));
     }
 
     /**
@@ -45,7 +53,10 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
-        //
+        $bahans = Bahan::all();
+        $warnas = Warna::all();
+        $ukurans = Ukuran::all();
+        return view('admin.products.edit', compact('product', 'bahans', 'warnas', 'ukurans'));
     }
 
     /**
@@ -53,7 +64,8 @@ class ProductController extends Controller
      */
     public function update(UpdateProductRequest $request, Product $product)
     {
-        //
+        $product->update($request->all());
+        return redirect()->route('products.index')->with('success', 'Product updated successfully');
     }
 
     /**
@@ -61,6 +73,7 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
-        //
+        $product->delete();
+        return redirect()->route('products.index')->with('success', 'Product deleted successfully');
     }
 }

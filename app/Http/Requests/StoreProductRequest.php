@@ -22,7 +22,10 @@ class StoreProductRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'name' => 'required|string|max:255',
+            'bahan_id' => 'required|exists:bahans,id', // Ensure bahan_id exists in bahans table
+            'warna_id' => 'required|exists:warnas,id', // Ensure warna_id exists in warnas table
+            'ukuran_id' => 'required|exists:ukurans,id', // Ensure ukuran_id exists in ukurans table
         ];
     }
 }

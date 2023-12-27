@@ -8,6 +8,7 @@ use App\Http\Requests\UpdateBahanRequest;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
 class BahanController extends Controller
@@ -36,8 +37,8 @@ class BahanController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \App\Http\Requests\StoreBahanRequest  $request
-     * @return \Illuminate\Http\RedirectResponse
+     * @param StoreBahanRequest $request
+     * @return RedirectResponse
      */
     public function store(StoreBahanRequest $request)
     {
@@ -48,7 +49,7 @@ class BahanController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Bahan  $bahan
+     * @param Bahan $bahan
      * @return Application|Factory|\Illuminate\Foundation\Application|View
      */
     public function show(Bahan $bahan)
@@ -59,7 +60,7 @@ class BahanController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Bahan  $bahan
+     * @param Bahan $bahan
      * @return Application|Factory|\Illuminate\Foundation\Application|View
      */
     public function edit(Bahan $bahan)
@@ -71,24 +72,24 @@ class BahanController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \App\Http\Requests\UpdateBahanRequest  $request
-     * @param  \App\Models\Bahan  $bahan
-     * @return \Illuminate\Http\RedirectResponse
+     * @param Bahan $bahan
+     * @return RedirectResponse
      */
     public function update(UpdateBahanRequest $request, Bahan $bahan)
     {
         $bahan->update($request->validated());
-        return redirect()->route('admin.bahan.index')->with('success', 'Bahan updated successfully.');
+        return redirect()->route('bahan.index')->with('success', 'Bahan updated successfully.');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Bahan  $bahan
-     * @return \Illuminate\Http\RedirectResponse
+     * @param Bahan $bahan
+     * @return RedirectResponse
      */
     public function destroy(Bahan $bahan)
     {
         $bahan->delete();
-        return redirect()->route('admin.bahan.index')->with('success', 'Bahan deleted successfully.');
+        return redirect()->route('bahan.index')->with('success', 'Bahan deleted successfully.');
     }
 }
