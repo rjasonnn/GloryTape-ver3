@@ -5,11 +5,13 @@ namespace App\Http\Controllers;
 use App\Models\Catalog;
 use App\Http\Requests\StoreCatalogRequest;
 use App\Http\Requests\UpdateCatalogRequest;
+use Carbon\Carbon;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class CatalogController extends Controller
 {
@@ -42,7 +44,28 @@ class CatalogController extends Controller
      */
     public function store(StoreCatalogRequest $request)
     {
-        Catalog::create($request->validated());
+        $newFilename = null;
+        if ($request->hasFile('image_path')) {
+            $date = now()->format('ymd_His');
+            $originalFilename = $request->file('image_path')->getClientOriginalName();
+            $newFilename = 'catalog_' . $date . '_' . $originalFilename;
+
+            // Store the file in the storage disk (you mentioned 'public')
+            $imagePath = $request->file('image_path')->storeAs('public', $newFilename);
+
+            // Update the request with the new file path
+//            $request->image_path = $newFilename;
+            $request->merge(['image_path' => $newFilename]);
+        }
+
+//        dd($request->validated());
+
+        Catalog::create([
+            'image_path' => $newFilename,
+            'description' => $request->description,
+            'start_date' => $request->start_date,
+            'end_date' => $request->end_date,
+        ]);
         return redirect()->route('catalogs.index')->with('success', 'Catalog created successfully.');
     }
 
@@ -77,7 +100,34 @@ class CatalogController extends Controller
      */
     public function update(UpdateCatalogRequest $request, Catalog $catalog)
     {
-        $catalog->update($request->validated());
+        $request->image_path = $catalog->image_path;
+
+        if ($request->image_path) {
+            Storage::delete($catalog->image_path);
+        }
+
+        $newFilename = $catalog->image_path;
+        if ($request->hasFile('image_path')) {
+            $date = now()->format('ymd_His');
+            $originalFilename = $request->file('image_path')->getClientOriginalName();
+            $newFilename = 'catalog_' . $date . '_' . $originalFilename;
+
+            // Store the file in the storage disk (you mentioned 'public')
+            $imagePath = $request->file('image_path')->storeAs('public', $newFilename);
+
+            // Update the request with the new file path
+//            $request->image_path = $newFilename;
+            $request->merge(['image_path' => $newFilename]);
+        }
+
+
+
+        $catalog->update([
+            'image_path' => $newFilename,
+            'description' => $request->description,
+            'start_date' => $request->start_date,
+            'end_date' => $request->end_date,
+        ]);
         return redirect()->route('catalogs.index')->with('success', 'Catalog updated successfully.');
     }
 

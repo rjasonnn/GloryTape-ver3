@@ -223,3 +223,34 @@ Route::put('/transactions/{transaction}', [TransactionController::class, 'update
 
 // Delete a transaction
 Route::delete('/transactions/{transaction}', [TransactionController::class, 'destroy'])->name('transactions.destroy');
+
+
+//Route::prefix('admin')->group(function () {
+//    // Bahans routes (example)
+//    Route::resource('bahans', BahanController::class);
+//    // Catalogs routes (example)
+//    Route::resource('catalogs', CatalogController::class);
+//    // Customers routes (example)
+//    Route::resource('customers', CustomerController::class);
+//    // Deliveries routes (example)
+//    Route::resource('deliveries', DeliveryController::class);
+//    // Products routes (example)
+//    Route::resource('products', ProductController::class);
+//    // Stores routes (example)
+//    Route::resource('stores', StoreController::class);
+//    // Transactions routes (example)
+//    Route::resource('transactions', TransactionController::class);
+//    // Ukurans routes (example)
+//    Route::resource('ukurans', UkuranController::class);
+//    // Warnas routes (example)
+//    Route::resource('warnas', WarnaController::class);
+//});
+
+Route::get('/dashboard', function () {
+    return view('admin.dashboard');
+})->middleware(['auth'])->name('dashboard');
+
+
+Route::get('/testModal', function () {
+    return view('admin.catalogs.testModal');
+});

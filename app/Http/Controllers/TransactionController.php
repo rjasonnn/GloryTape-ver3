@@ -39,8 +39,21 @@ class TransactionController extends Controller
      */
     public function store(StoreTransactionRequest $request)
     {
+        $newFilename = null;
+        if ($request->hasFile('invoice')) {
+            $date = now()->format('ymd_His');
+            $originalFilename = $request->file('invoice')->getClientOriginalName();
+            $newFilename = 'invoice_' . $date . '_' . $originalFilename;
+
+            // Store the file in the storage disk (you mentioned 'public')
+            $invoicePath = $request->file('invoice')->storeAs('public', $newFilename);
+
+            // Update the request with the new file path
+            $request->merge(['invoice' => $newFilename]);
+        }
+
         $transaction = Transaction::create([
-            'invoice' => $request->invoice->store('invoices'),
+            'invoice' => $newFilename,
             'date' => $request->date,
             'customer_id' => $request->customer_id,
             'delivery_id' => $request->delivery_id,
@@ -82,21 +95,34 @@ class TransactionController extends Controller
      */
     public function update(UpdateTransactionRequest $request, Transaction $transaction)
     {
+        $request->invoice = $transaction->invoice;
         // Delete old invoice if a new one is uploaded
         if ($request->invoice) {
             Storage::delete($transaction->invoice);
-            $transaction->invoice = $request->invoice->store('invoices');
+        }
+
+        $newFilename = Transaction::find($transaction->id)->invoice;
+        if ($request->hasFile('invoice')) {
+            $date = now()->format('ymd_His');
+            $originalFilename = $request->file('invoice')->getClientOriginalName();
+            $newFilename = 'invoice_' . $date . '_' . $originalFilename;
+
+            // Store the file in the storage disk (you mentioned 'public')
+            $invoicePath = $request->file('invoice')->storeAs('public', $newFilename);
+
+            // Update the request with the new file path
+            $request->merge(['invoice' => $newFilename]);
         }
 
         $transaction->update([
+            'invoice' => $newFilename,
             'date' => $request->date,
             'customer_id' => $request->customer_id,
             'delivery_id' => $request->delivery_id,
         ]);
 
-        TransactionProduct::where('transaction_id', $transaction->id)->delete();
         foreach ($request->products as $productId => $productData) {
-            TransactionProduct::create([
+            TransactionProduct::where('transaction_id', $transaction->id)->where('product_id', $productId)->update([
                 'transaction_id' => $transaction->id,
                 'product_id' => $productId,
                 'quantity' => $productData['quantity'],
@@ -114,6 +140,7 @@ class TransactionController extends Controller
     {
         Storage::delete($transaction->invoice);
         $transaction->delete();
+        TransactionProduct::where('transaction_id', $transaction->id)->delete();
         return redirect()->route('transactions.index')->with('success', 'Transaction deleted successfully!');
     }
 }

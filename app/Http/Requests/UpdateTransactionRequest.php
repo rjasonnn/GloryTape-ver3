@@ -11,7 +11,7 @@ class UpdateTransactionRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,7 @@ class UpdateTransactionRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'invoice' => 'required|file|mimes:jpg,jpeg,png|max:2048',
+            'invoice' => 'nullable',
             'date' => 'required|date',
             'customer_id' => 'required|exists:customers,id',
             'delivery_id' => 'required|exists:deliveries,id',

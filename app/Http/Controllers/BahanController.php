@@ -43,7 +43,7 @@ class BahanController extends Controller
     public function store(StoreBahanRequest $request)
     {
         Bahan::create($request->validated());
-        return redirect()->route('bahan.index')->with('success', 'Bahan created successfully.');
+        return redirect()->route('bahans.index')->with('success', 'Bahan created successfully.');
     }
 
     /**
@@ -78,7 +78,7 @@ class BahanController extends Controller
     public function update(UpdateBahanRequest $request, Bahan $bahan)
     {
         $bahan->update($request->validated());
-        return redirect()->route('bahan.index')->with('success', 'Bahan updated successfully.');
+        return redirect()->route('bahans.index')->with('success', 'Bahan updated successfully.');
     }
 
     /**
@@ -90,6 +90,6 @@ class BahanController extends Controller
     public function destroy(Bahan $bahan)
     {
         $bahan->delete();
-        return redirect()->route('bahan.index')->with('success', 'Bahan deleted successfully.');
+        return redirect()->route('bahans.index')->with('success', 'Bahan deleted successfully.');
     }
 }

@@ -11,6 +11,8 @@ class TransactionProduct extends Model
     use HasFactory;
     use SoftDeletes;
 
+    protected $table = 'product_transaction';
+
     protected $fillable = [
         'transaction_id',
         'product_id',

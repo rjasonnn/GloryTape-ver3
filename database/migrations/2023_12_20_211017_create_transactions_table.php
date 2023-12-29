@@ -13,7 +13,7 @@ return new class extends Migration {
         Schema::create('transactions', function (Blueprint $table) {
             $table->id();
             $table->string('invoice');
-            $table->datetime('date');
+            $table->date('date');
             $table->unsignedBigInteger('customer_id');
             $table->unsignedBigInteger('delivery_id');
 

@@ -11,7 +11,7 @@ class UpdateCatalogRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,7 @@ class UpdateCatalogRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'image_path' => 'required|string|max:255',
+            'image_path' => 'nullable',
             'description' => 'required|string|max:255',
             'start_date' => 'required|string|max:255',
             'end_date' => 'required|string|max:255',

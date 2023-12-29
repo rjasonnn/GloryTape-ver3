@@ -19,7 +19,7 @@
 </div>
 <div>
     <label>Ukuran:</label>
-    <p>{{ $product->ukuran->name }}</p>
+    <p>P:{{ $product->ukuran->length }}m ⨉ L:{{ $product->ukuran->width }}cm, ⨉ T:{{ $product->ukuran->height }}mm</p>
 </div>
 <div>
     <a href="{{ route('products.index') }}">Back to Products List</a>

@@ -32,7 +32,7 @@
         <label for="ukuran_id">Ukuran:</label>
         <select name="ukuran_id" id="ukuran_id">
             @foreach ($ukurans as $ukuran)
-                <option value="{{ $ukuran->id }}" {{ $product->ukuran_id === $ukuran->id ? 'selected' : '' }}>{{ $ukuran->name }}</option>
+                <option value="{{ $ukuran->id }}" {{ $product->ukuran_id === $ukuran->id ? 'selected' : '' }}>P:{{ $ukuran->length }}m ⨉ L:{{ $ukuran->width }}cm, ⨉ T:{{ $ukuran->height }}mm</option>
             @endforeach
         </select>
     </div>

@@ -16,7 +16,7 @@
             <p><strong>Invoice:</strong> <a href="{{ Storage::url($transaction->invoice) }}">{{ $transaction->invoice }}</a></p>
             <p><strong>Date:</strong> {{ $transaction->date }}</p>
             <p><strong>Customer:</strong> {{ $transaction->customer->name }}</p>
-            <p><strong>Delivery:</strong> {{ $transaction->delivery->name }}</p>
+            <p><strong>Delivery:</strong> {{ $transaction->delivery->driver }}</p>
         </div>
     </div>
 

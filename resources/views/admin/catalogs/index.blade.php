@@ -1,47 +1,82 @@
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-</head>
-<body>
-<h1>Catalogs</h1>
+@include('admin.header')
 
-<table class="table">
-    <thead>
-    <tr>
-        <th>Image</th>
-        <th>Description</th>
-        <th>Start Date</th>
-        <th>End Date</th>
-        <th>Actions</th>
-    </tr>
-    </thead>
-    <tbody>
-    @foreach($catalogs as $catalog)
-        <tr>
-            <td><img src="{{ asset($catalog->image_path) }}" alt="{{ $catalog->description }}" style="width: 100px;"></td>
-            <td>{{ $catalog->description }}</td>
-            <td>{{ $catalog->start_date }}</td>
-            <td>{{ $catalog->end_date }}</td>
-            <td>
-                <a href="{{ route('catalogs.show', $catalog->id) }}" class="btn btn-sm btn-primary">Show</a>
-                <a href="{{ route('catalogs.edit', $catalog->id) }}" class="btn btn-sm btn-secondary">Edit</a>
-                <form action="{{ route('catalogs.destroy', $catalog->id) }}" method="POST" class="d-inline">
-                    @csrf
-                    @method('DELETE')
-                    <button type="submit" class="btn btn-sm btn-danger">Delete</button>
-                </form>
-            </td>
-        </tr>
-    @endforeach
-    </tbody>
-</table>
+<main class="flex-1">
+    <div class="py-6">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
+            <div class="pb-5 border-b border-gray-200 sm:flex sm:items-center sm:justify-between">
+                <h3 class="text-lg leading-6 font-medium text-gray-900">Catalogs</h3>
+                <div class="mt-3 sm:mt-0 sm:ml-4">
+                    <form action="{{ route('catalogs.create') }}" method="POST">
+                        @csrf
+                        @method('GET')
+                        <button type="submit" class="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Create New Catalog</button>
+                    </form>
 
-<a href="{{ route('catalogs.create') }}" class="btn btn-primary">Create Catalog</a>
+                </div>
+            </div>
+        </div>
 
-</body>
-</html>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
+            <!-- Replace with your content -->
+
+            <!-- This example requires Tailwind CSS v2.0+ -->
+            <div class="px-4 sm:px-6 lg:px-8">
+                <div class="mt-8 flex flex-col">
+                    <div class="-my-2 -mx-4 overflow-x-auto sm:-mx-6 lg:-mx-8">
+                        <div class="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
+                            <div class="overflow-hidden shadow ring-1 ring-black ring-opacity-5 md:rounded-lg">
+                                <table class="min-w-full divide-y divide-gray-300">
+                                    <thead class="bg-gray-50">
+                                    <tr>
+                                        <th scope="col" class="py-3 pl-4 pr-3 text-left text-xs font-medium uppercase tracking-wide text-gray-500 sm:pl-6">Image</th>
+                                        <th scope="col" class="px-3 py-3 text-left text-xs font-medium uppercase tracking-wide text-gray-500">Description</th>
+                                        <th scope="col" class="px-3 py-3 text-left text-xs font-medium uppercase tracking-wide text-gray-500">Start Date</th>
+                                        <th scope="col" class="px-3 py-3 text-left text-xs font-medium uppercase tracking-wide text-gray-500">End Date</th>
+                                        <th scope="col" class="relative py-3 pl-3 "><span class="sr-only">View</span></th>
+                                        <th scope="col" class="relative py-3 pl-3 "><span class="sr-only">Edit</span></th>
+                                        <th scope="col" class="relative py-3 pl-3 "><span class="sr-only">Delete</span></th>
+                                    </tr>
+                                    </thead>
+                                    <tbody class="divide-y divide-gray-200 bg-white">
+                                    @foreach($catalogs as $catalog)
+                                        <tr>
+                                            <td class="whitespace-nowrap py-4 pl-4 pr-3 sm:pl-6"><img src="{{ asset("storage/" . $catalog->image_path) }}" alt="{{ $catalog->description }}" style="width: 100px;"></td>
+                                            <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ $catalog->description }}</td>
+                                            <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ $catalog->start_date }}</td>
+                                            <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ $catalog->end_date }}</td>
+                                            <td class=" whitespace-nowrap py-4 pl-3 ">
+                                                <form action="{{ route('catalogs.show', $catalog->id) }}" method="POST" class="d-inline">
+                                                    @csrf
+                                                    @method('GET')
+                                                    <button type="submit" class="inline-flex items-center justify-center rounded-md border border-transparent bg-green-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 sm:w-auto">View</button>
+                                                </form>
+                                            </td>
+                                            <td class=" whitespace-nowrap py-4 pl-3 ">
+                                                <form action="{{ route('catalogs.edit', $catalog->id) }}" method="POST" class="d-inline">
+                                                    @csrf
+                                                    @method('GET')
+                                                    <button type="submit" class="inline-flex items-center justify-center rounded-md border border-transparent bg-blue-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 sm:w-auto">Edit</button>
+                                                </form>
+                                            </td>
+                                            <td class=" whitespace-nowrap py-4 pl-3 ">
+                                                <form action="{{ route('catalogs.destroy', $catalog->id) }}" method="POST" class="d-inline">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="inline-flex items-center justify-center rounded-md border border-transparent bg-red-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 sm:w-auto">Delete</button>
+                                                </form>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /End replace -->
+        </div>
+    </div>
+</main>
+
+@include('admin.footer')

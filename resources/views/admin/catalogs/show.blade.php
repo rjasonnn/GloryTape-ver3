@@ -10,7 +10,7 @@
 <body>
 <h1>{{ $catalog->description }}</h1>
 
-<img src="{{ asset($catalog->image_path) }}" alt="{{ $catalog->description }}" style="width: 200px;">
+<img src="{{ asset("storage/" . $catalog->image_path) }}" alt="{{ $catalog->description }}" style="width: 200px;">
 
 <p>Start Date: {{ $catalog->start_date }}</p>
 <p>End Date: {{ $catalog->end_date }}</p>
