@@ -1,4 +1,4 @@
-@extends('layouts.navbarfooter')
+@extends('layouts.header')
 
 @section('layout_contect')
 <!-- Main Content -->
