@@ -1,22 +1,31 @@
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-</head>
-<body>
-<div class="container">
-    <h1>Transaction Details</h1>
+@include('admin.header')
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 
-    <div class="row">
-        <div class="col-md-6">
-            <p><strong>Invoice:</strong> <a href="{{ Storage::url($transaction->invoice) }}">{{ $transaction->invoice }}</a></p>
-            <p><strong>Date:</strong> {{ $transaction->date }}</p>
-            <p><strong>Customer:</strong> {{ $transaction->customer->name }}</p>
-            <p><strong>Delivery:</strong> {{ $transaction->delivery->driver }}</p>
+<main class="flex-1">
+    <div class="py-6">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
+            <div class="pb-5 border-b border-gray-200 sm:flex sm:items-center sm:justify-between">
+                <h3 class="text-lg leading-6 font-medium text-gray-900">Transaction Details</h3>
+            </div>
+        </div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
+            <div class="bg-white p-4 rounded-md mb-4">
+        <div class="mb-2">
+            <label class="font-semibold">Invoice:</label>
+            <a href="{{ Storage::url($transaction->invoice) }}">{{ $transaction->invoice }}</a>
+        </div>
+        <div class="mb-2">
+            <label class="font-semibold">Date:</label>
+            <p class="text-gray-800">{{ $transaction->date }}</p>
+        </div>
+        <div class="mb-2">
+            <label class="font-semibold">Customer:</label>
+            <p class="text-gray-800">{{ $transaction->customer->name }}</p>
+        </div>
+        <div class="mb-2">
+            <label class="font-semibold">Delivery:</label>
+            <p class="text-gray-800">{{ $transaction->delivery->driver }}</p>
         </div>
     </div>
 
@@ -48,8 +57,5 @@
         </tfoot>
     </table>
 
-    <a href="{{ route('transactions.index') }}" class="btn btn-primary">Back to Transactions</a>
+    <a href="{{ route('transactions.index') }}" class="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Back to Transactions</a>
 </div>
-
-</body>
-</html>

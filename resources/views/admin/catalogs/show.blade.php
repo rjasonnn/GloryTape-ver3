@@ -1,21 +1,33 @@
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-</head>
-<body>
-<h1>{{ $catalog->description }}</h1>
+@include('admin.header')
 
-<img src="{{ asset("storage/" . $catalog->image_path) }}" alt="{{ $catalog->description }}" style="width: 200px;">
+<main class="flex-1">
+    <div class="py-6">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
+            <div class="pb-5 border-b border-gray-200 sm:flex sm:items-center sm:justify-between">
+                <h3 class="text-lg leading-6 font-medium text-gray-900">{{ $catalog->description }}</h3>
+                <div class="mt-3 sm:mt-0 sm:ml-4">
+                </div>
+            </div>
+        </div>
 
-<p>Start Date: {{ $catalog->start_date }}</p>
-<p>End Date: {{ $catalog->end_date }}</p>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
+            <div class="bg-white p-4 rounded-md mb-4">
+                <img src="{{ asset('storage/' . $catalog->image_path) }}" alt="{{ $catalog->description }}"
+                    style="width: 200px;">
 
-<a href="{{ route('catalogs.index') }}" class="btn btn-primary">Back to Catalogs</a>
+                    <div class="mb-2">
+                        <label class="font-semibold">Start Date:</label>
+                        <p class="text-gray-800">{{ $catalog->start_date }}</p>
+                    </div>
+                    <div class="mb-2">
+                        <label class="font-semibold">End Date:</label>
+                        <p class="text-gray-800">{{ $catalog->end_date }}</p>
+                    </div>
 
-</body>
-</html>
+                <a href="{{ route('catalogs.index') }}"
+                    class="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                    Back to Catalogs
+                </a>
+            </div>
+        </div>
+</main>

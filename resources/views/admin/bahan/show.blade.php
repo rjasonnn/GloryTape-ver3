@@ -1,18 +1,27 @@
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-</head>
-<body>
-<h1>{{ $bahan->name }}</h1>
+@include('admin.header')
 
-<p>Supplier: {{ $bahan->supplier }}</p>
+<main class="flex-1">
 
-<a href="{{ route('bahans.index') }}" class="btn btn-primary">Back to Bahans</a>
+    <div class="py-6">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
+            <div class="pb-5 border-b border-gray-200 sm:flex sm:items-center sm:justify-between">
+                <h3 class="text-lg leading-6 font-medium text-gray-900">{{ $bahan->name }}</h3>
+            </div>
+        </div>
 
-</body>
-</html>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
+            <div class="bg-white p-4 rounded-md mb-4">
+                <div class="mb-2">
+                    <label class="font-semibold">Supplier: </label>
+                    <p class="text-gray-800">{{ $bahan->supplier }}</p>
+                </div>
+
+                <a href="{{ route('bahans.index') }}" class="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                    Back to Materials List
+                </a>
+            </div>
+        </div>
+    </div>
+</main>
+
+
