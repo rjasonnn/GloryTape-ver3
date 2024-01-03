@@ -208,3 +208,4 @@
         });
     });
 </script>
+@include('admin.footer')

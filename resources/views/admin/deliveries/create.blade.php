@@ -63,3 +63,4 @@
         </div>
     </div>
 </main>
+@include('admin.footer')

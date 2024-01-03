@@ -4,7 +4,7 @@
     <div class="py-6">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
             <div class="pb-5 border-b border-gray-200 sm:flex sm:items-center sm:justify-between">
-                <h3 class="text-lg leading-6 font-medium text-gray-900">{{ $catalog->description }}</h3>
+                <h3 class="text-lg leading-6 font-medium text-gray-900">Catalog</h3>
                 <div class="mt-3 sm:mt-0 sm:ml-4">
                 </div>
             </div>
@@ -15,6 +15,10 @@
                 <img src="{{ asset('storage/' . $catalog->image_path) }}" alt="{{ $catalog->description }}"
                     style="width: 200px;">
 
+                    <div class="mb-2">
+                        <label class="font-semibold">Description:</label>
+                        <p class="text-gray-800">{{ $catalog->description }}</p>
+                    </div>
                     <div class="mb-2">
                         <label class="font-semibold">Start Date:</label>
                         <p class="text-gray-800">{{ $catalog->start_date }}</p>
@@ -31,3 +35,4 @@
             </div>
         </div>
 </main>
+@include('admin.footer')
