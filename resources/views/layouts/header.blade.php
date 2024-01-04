@@ -39,7 +39,6 @@
     <div class="container mt-4">
         @yield('layout_contect')
     </div>
-
     <!-- Footer -->
     <footer class="bg-dark text-white py-4 text-center">
         <div class="container">
@@ -56,4 +55,3 @@
 </body>
 
 </html>
-

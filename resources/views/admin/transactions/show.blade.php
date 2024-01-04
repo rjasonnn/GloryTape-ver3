@@ -49,12 +49,6 @@
                         </tr>
                     @endforeach
                 </tbody>
-                <tfoot>
-                    <tr>
-                        <th colspan="3">Grand Total</th>
-                        <th>{{ $transaction->total }}</th>
-                    </tr>
-                </tfoot>
             </table>
 
             <a href="{{ route('transactions.index') }}"

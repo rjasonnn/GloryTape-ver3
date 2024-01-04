@@ -1,46 +1,61 @@
 @extends('layouts.header')
 
 @section('layout_contect')
-<!-- Main Content -->
-<div class="container mt-4">
-</div>
-<div id="imageCarousel" class="carousel slide" data-ride="carousel">
-    <div class="carousel-inner">
-        <?php
-        // Fetch images and descriptions from the catalog table in the database
-        $images = \App\Models\Catalog::all();
-        $first = true; // To mark the first image as active
-        
-        foreach ($images as $image) {
-            // Use the image_path and description fields from the database
-            $imagePath = $image->image_path;
-            $description = $image->description;
-        
-            // Set the active class for the first image
-            $activeClass = $first ? 'active' : '';
-        
-            // Output the carousel item with image and description
-            echo "<div class='carousel-item $activeClass'>
-                                <img src='storage/{$imagePath}' class='d-block w-100' alt='$description'>
-                                <div class='carousel-caption d-none d-md-block'>
-                                    <p>$description</p>
-                                </div>
-                            </div>";
-        
-            $first = false; // After the first iteration, set $first to false
-        }
-        ?>
+    <!-- Main Content -->
+    <div class="container mt-4">
+        <div class="row">
+            <!-- Carousel on the left -->
+            <div class="col-lg-6">
+                <div id="imageCarousel" class="carousel slide" data-ride="carousel">
+                    <div class="carousel-inner">
+                        <?php
+                        // Fetch images and descriptions from the catalog table in the database
+                        $images = \App\Models\Catalog::all();
+                        $first = true; // To mark the first image as active
+                        
+                        foreach ($images as $image) {
+                            // Use the image_path and description fields from the database
+                            $imagePath = $image->image_path;
+                            $description = $image->description;
+                        
+                            // Set the active class for the first image
+                            $activeClass = $first ? 'active' : '';
+                        
+                            // Output the carousel item with image and description
+                            echo "<div class='carousel-item $activeClass'>
+                                            <img src='storage/{$imagePath}' class='d-block w-100' alt='$description'>
+                                            <div class='carousel-caption d-none d-md-block'>
+                                                <p>$description</p>
+                                            </div>
+                                        </div>";
+                        
+                            $first = false; // After the first iteration, set $first to false
+                        }
+                        ?>
+                    </div>
+                    <!-- Add carousel controls -->
+                    <a class="carousel-control-prev" href="#imageCarousel" role="button" data-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                    <a class="carousel-control-next" href="#imageCarousel" role="button" data-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Next</span>
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Box with "Contact Us" button on the right -->
+            <div class="col-lg-6 mt-4 mt-lg-0">
+                <div class="bg-light p-4">
+                    <h2>Contact Us</h2>
+                    <p>Butuh Penawaran Harga, bantuan atau Konsultasi Produk?</p>
+                    <button class="btn btn-primary">Contact Us</button>
+                </div>
+            </div>
+        </div>
     </div>
-    <!-- Add carousel controls -->
-    <a class="carousel-control-prev" href="#imageCarousel" role="button" data-slide="prev">
-        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        <span class="sr-only">Previous</span>
-    </a>
-    <a class="carousel-control-next" href="#imageCarousel" role="button" data-slide="next">
-        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        <span class="sr-only">Next</span>
-    </a>
-</div>
+
 <div class="container mt-4">
     <h1 class="text-center">Glory Tape</h1>
     <p class="text-center p-2">Kami mengkhususkan diri dalam produksi dan penjualan produk perekat diri, terutama Isolasi/ Lakban. Komitmen utama kami adalah untuk pengiriman produk dengan kualitas terbaik. Selain itu, untuk mempertahankan loyalitas pelanggan kami, kami selalu mengutamakan kepuasan pelanggan dengan memberikan pelayanan prima. Tujuan kami adalah untuk menyediakan produk-produk berkualitas tinggi dan jaminan kepuasan pelanggan.</p>
